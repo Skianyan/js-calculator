@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Calculator</title>
+		<link rel="shortcut icon" href="#" />
+		<script src="main.js" defer></script>
+	</head>
+	<body style="display: flex; flex-direction: column">
+		<div style="display: flex; gap: 5px">
+			<div id="display"></div>
+		</div>
+		<div id="operationCont"></div>
+		<div
+			id="numpadCont"
+			style="display: flex; flex-direction: column; align-items: center"
+		>
+			<div style="display: flex">
+				<button class="cButton">7</button>
+				<button class="cButton">8</button>
+				<button class="cButton">9</button>
+			</div>
+			<div style="display: flex">
+				<button class="cButton">4</button>
+				<button class="cButton">5</button>
+				<button class="cButton">6</button>
+			</div>
+			<div style="display: flex">
+				<button class="cButton">1</button>
+				<button class="cButton">2</button>
+				<button class="cButton">3</button>
+			</div>
+			<div style="display: flex">
+				<button class="cButton">0</button>
+			</div>
+		</div>
+
+		<button id="calculate">Calculate</button>
+		<button id="reset">Reset</button>
+	</body>
+</html>
