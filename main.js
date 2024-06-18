@@ -31,10 +31,11 @@ function multiply(n1, n2) {
 }
 
 function divide(n1, n2) {
+	let res;
 	if (n2 == 0) {
-		return "don't do that";
-	}
-	let res = n1 / n2;
+		console.log("dont divide by 0 please");
+		return 0;
+	} else res = n1 / n2;
 	return res;
 }
 
@@ -82,18 +83,52 @@ function handleButtonClick(event) {
 	// if operator is not selected, collect the first number
 	// if operator is selected, store the first number and collect the second number
 	// last case is for when a result is already present, resets the calculator if a number is pressed instead of another calculation
-	if (operator != "") {
-		number2 = number2 + num;
-		updateDisplay(number2);
-		console.log("operator: " + operator);
-	} else if (operator == "" && currResult == "") {
-		number1 = number1 + num;
-		updateDisplay(number1);
-	} else {
-		numberHid = numberHid + num;
-		updateDisplay(numberHid);
-		number1 = numberHid;
-		currResult = "";
+	switch (num) {
+		case "<=":
+			if (number2 == "" && number1 == "") {
+				console.log("cannot return from result");
+			} else if (operator != "") {
+				number2 = number2.slice(0, -1);
+				updateDisplay(number2);
+			} else {
+				console.log(number1);
+				number1 = number1.slice(0, -1);
+				updateDisplay(number1);
+			}
+			break;
+		case ".":
+			if (
+				number1.toString().indexOf(".") > -1 ||
+				number2.toString().indexOf(".") > -1
+			) {
+				console.log("topkeke");
+			} else {
+				if (operator != "") {
+					number2 = number2 + num;
+					updateDisplay(number2);
+				} else {
+					console.log(number1);
+					number1 = number1 + num;
+					updateDisplay(number1);
+				}
+			}
+			break;
+		case "+/-":
+			break;
+		default:
+			if (operator != "") {
+				number2 = number2 + num;
+				updateDisplay(number2);
+				console.log("operator: " + operator);
+			} else if (operator == "" && currResult == "") {
+				number1 = number1 + num;
+				updateDisplay(number1);
+			} else {
+				numberHid = numberHid + num;
+				updateDisplay(numberHid);
+				number1 = numberHid;
+				currResult = "";
+			}
 	}
 }
 cButton = document.getElementsByClassName("cButton");
@@ -105,6 +140,7 @@ const operatorButtons = () => {
 	opContainer = document.getElementById("operationCont");
 	for (op in operators) {
 		opKey = document.createElement("button");
+		opKey.classList.add("opButton");
 		opKey.textContent = operators[op];
 		let opText = opKey.textContent;
 		opContainer.appendChild(opKey);
@@ -122,9 +158,10 @@ calcButton = document.getElementById("calculate");
 calcButton.addEventListener("click", function () {
 	if (number1 && number2 && operator != "") {
 		currResult = operate(Number(number1), operator, Number(number2));
-		updateDisplay(currResult.toFixed(5).replace(/[.,]0+$/, ""));
+		updateDisplay(currResult.toFixed(5).replace(/[.,]+$/, ""));
 		resetValues();
-		number1 = currResult;
+		number1 = currResult.toString();
+		console.log(number1);
 	}
 });
 
